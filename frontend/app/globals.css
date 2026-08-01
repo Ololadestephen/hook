@@ -157,16 +157,16 @@ input::placeholder {
 }
 
 .app-shell > section [class*="bg-surface-container"] {
-  background-color: #f2eee4 !important;
+  background-color: #071f17 !important;
 }
 
 .app-shell > section [class*="bg-surface-container-lowest"],
 .app-shell > section [class*="bg-background"] {
-  background-color: #ddd6c6 !important;
+  background-color: #0a2a20 !important;
 }
 
 .app-shell > section [class*="to-surface-container-low"] {
-  --tw-gradient-to: #f2eee4 var(--tw-gradient-to-position) !important;
+  --tw-gradient-to: #071f17 var(--tw-gradient-to-position) !important;
 }
 
 .app-shell > section [class*="border-outline-variant"],
@@ -179,10 +179,41 @@ input::placeholder {
 }
 
 .app-shell > section .glass {
-  background: #f2eee4 !important;
-  border-color: rgba(41, 94, 67, 0.2);
-  box-shadow: 0 20px 55px rgba(32, 73, 52, 0.1);
+  background: #071f17 !important;
+  border-color: rgba(73, 230, 142, 0.18);
+  box-shadow: 0 20px 55px rgba(7, 31, 23, 0.18);
   backdrop-filter: none;
+}
+
+.app-shell > section article,
+.app-shell > section details {
+  background-color: #071f17 !important;
+  background-image: none !important;
+  color: #f8f4e8;
+}
+
+.app-shell > section article details {
+  background-color: #0a2a20 !important;
+}
+
+.app-shell > section :is(article, details, [class*="bg-surface-container"], [class*="bg-background"], .glass)
+  :where(.text-white, .text-on-background, .text-on-surface) {
+  color: #f8f4e8 !important;
+}
+
+.app-shell > section :is(article, details, [class*="bg-surface-container"], [class*="bg-background"], .glass)
+  .text-on-surface-variant {
+  color: #b7c6ba !important;
+}
+
+.app-shell > section :is(article, details, [class*="bg-surface-container"], [class*="bg-background"], .glass)
+  .text-primary {
+  color: #49e68e !important;
+}
+
+.app-shell > section :is(article, details, [class*="bg-surface-container"], [class*="bg-background"], .glass)
+  [class*="border-outline-variant"] {
+  border-color: rgba(183, 198, 186, 0.24) !important;
 }
 
 .app-shell > .particle-field {
