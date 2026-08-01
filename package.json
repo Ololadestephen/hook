@@ -5,6 +5,11 @@
     "dev": "npm --prefix frontend run dev",
     "build": "npm --prefix frontend run build",
     "start": "npm --prefix frontend run start",
-    "lint": "npm --prefix frontend run lint"
+    "lint": "npm --prefix frontend run lint",
+    "contracts:build": "forge build",
+    "contracts:test": "forge test --offline",
+    "deploy:sepolia": "forge script script/DeployHookFlowPublicSelfServe.s.sol:DeployHookFlowPublicSelfServe --rpc-url sepolia --broadcast -vvvv",
+    "nox:build": "npm --prefix nox run build",
+    "nox:test": "npm --prefix nox test"
   }
 }

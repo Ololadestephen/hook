@@ -6,11 +6,11 @@ import {HookFlowLiquidityRouter} from "../src/HookFlowLiquidityRouter.sol";
 import {IPoolManager} from "v4-core/src/interfaces/IPoolManager.sol";
 
 contract DeployHookFlowLiquidityRouter is Script {
-    address internal constant X_LAYER_MAINNET_POOL_MANAGER = 0x360E68faCcca8cA495c1B759Fd9EEe466db9FB32;
+    address internal constant SEPOLIA_POOL_MANAGER = 0xE03A1074c86CFeDd5C142C4F04F1a1536e203543;
 
     function run() external returns (HookFlowLiquidityRouter liquidityRouter) {
         uint256 deployerKey = vm.envUint("PRIVATE_KEY");
-        address poolManager = vm.envOr("POOL_MANAGER", X_LAYER_MAINNET_POOL_MANAGER);
+        address poolManager = vm.envOr("POOL_MANAGER", SEPOLIA_POOL_MANAGER);
 
         vm.startBroadcast(deployerKey);
         liquidityRouter = new HookFlowLiquidityRouter(IPoolManager(poolManager));

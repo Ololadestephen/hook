@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "HookFlow Console",
-  description: "Liquidity intelligence dashboard for the HookFlow Uniswap v4 hook on X Layer."
+  description: "Liquidity intelligence and confidential flow protection for Uniswap v4 on Ethereum Sepolia."
 };
 
 export default function RootLayout({

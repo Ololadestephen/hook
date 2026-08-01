@@ -14,7 +14,7 @@ const nextConfig = {
           {
             key: "Content-Security-Policy",
             value:
-              `default-src 'self'; script-src ${scriptSources.join(" ")}; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob:; connect-src 'self' https://rpc.xlayer.tech https://www.oklink.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'`
+              `default-src 'self'; script-src ${scriptSources.join(" ")}; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob:; connect-src 'self' https: wss:; frame-ancestors 'none'; base-uri 'self'; form-action 'self'`
           },
           { key: "Strict-Transport-Security", value: "max-age=31536000; includeSubDomains" }
         ]

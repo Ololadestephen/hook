@@ -1,7 +1,9 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useLayoutEffect, useRef } from "react";
+import icon from "./icon.png";
 
 const RING_RADIUS = 180;
 const PARTICLE_COUNT = 240;
@@ -89,7 +91,7 @@ export default function HomePage() {
       drawingContext.lineCap = "round";
       drawingContext.lineJoin = "round";
       centerX = width / 2;
-      centerY = height * (isMobile ? 0.3 : 0.48);
+      centerY = height * (isMobile ? 0.5 : 0.48);
       particles = Array.from({ length: currentParticleCount }, createParticle);
       for (let step = 0; step < 24; step += 1) {
         particles.forEach(updateParticle);
@@ -203,50 +205,53 @@ export default function HomePage() {
   }, []);
 
   return (
-    <main className="min-h-screen overflow-x-hidden bg-background text-on-background selection:bg-primary selection:text-on-primary">
-      <header className="fixed right-3 top-3 z-40 flex items-center justify-end md:right-0 md:top-0 md:h-16 md:w-full md:rounded-none md:border-0 md:border-b md:border-white/5 md:bg-surface/60 md:px-margin-desktop md:py-0">
-        <div className="flex items-center gap-6">
-          <button className="cursor-pointer rounded-full border border-primary/25 bg-primary px-3 py-2 font-label-md text-[10px] text-on-primary shadow-[0_0_18px_rgba(78,222,163,0.2)] transition-transform hover:scale-105 active:opacity-80 md:rounded-lg md:px-6 md:py-2 md:text-label-md md:shadow-none">
-            X Layer Mainnet
-          </button>
+    <main className="min-h-screen overflow-x-hidden bg-background text-on-background">
+      <header className="fixed inset-x-0 top-0 z-40 border-b border-white/[0.07] bg-background/80 backdrop-blur-xl">
+        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 md:h-[72px] md:px-8">
+          <Link className="flex items-center gap-3" href="/">
+            <Image alt="HookFlow" className="h-8 w-8 rounded-lg md:h-9 md:w-9 md:rounded-xl" src={icon} />
+            <span className="font-display text-lg font-bold tracking-[-0.03em] text-white md:text-xl">HookFlow</span>
+          </Link>
+          <nav className="hidden items-center gap-7 text-sm text-on-surface-variant md:flex">
+            <Link className="transition hover:text-primary" href="/dashboard">Dashboard</Link>
+            <Link className="transition hover:text-primary" href="/create">Create pool</Link>
+            <Link className="transition hover:text-primary" href="/phantom">Phantom Router</Link>
+          </nav>
+          <Link className="inline-flex items-center gap-2 rounded-full border border-primary/25 bg-primary/10 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.12em] text-primary md:px-4" href="/dashboard">
+            <span className="pulse-dot h-1.5 w-1.5 rounded-full bg-primary" />
+            <span className="hidden sm:inline">Live on</span> Sepolia
+          </Link>
         </div>
       </header>
 
-      <section className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden px-4 pb-12 pt-20 md:px-0 md:pb-0 md:pt-16">
-        <div className="pointer-events-none absolute inset-0 z-0 flex items-center justify-center">
-          <div className="orb-glow absolute h-[520px] w-[520px] rounded-full opacity-22 md:h-[800px] md:w-[800px] md:opacity-40" />
-          <canvas ref={canvasRef} className="h-full w-full opacity-80 md:opacity-100" id="liquidity-currents-canvas" />
+      <section className="relative min-h-[100svh] overflow-hidden px-4 pb-12 pt-24 md:px-8 md:pb-20 md:pt-32">
+        <div className="pointer-events-none absolute inset-0 z-0">
+          <div className="orb-glow absolute right-[-15%] top-[5%] h-[680px] w-[680px] rounded-full opacity-35" />
+          <canvas ref={canvasRef} className="h-full w-full opacity-45" id="liquidity-currents-canvas" />
         </div>
 
-        <div className="relative z-10 w-full max-w-4xl px-0 text-center md:px-gutter">
-          
-        
+        <div className="relative z-10 mx-auto flex min-h-[calc(100svh-9rem)] w-full max-w-7xl items-center justify-center text-center md:min-h-[calc(100svh-13rem)]">
+          <div className="mx-auto max-w-4xl">
+            <div className="mx-auto mb-5 inline-flex max-w-full items-center gap-2 rounded-full border border-primary/25 bg-primary/10 px-3 py-2 font-mono text-[9px] uppercase tracking-[0.12em] text-primary md:px-4 md:text-[10px]">
+              <span className="material-symbols-outlined text-sm">verified_user</span>
+              Protected liquidity · Private routing
+            </div>
+            <h1 className="mx-auto max-w-3xl font-display text-[36px] font-bold leading-[1.04] tracking-[-0.04em] text-white sm:text-[46px] lg:text-[56px]">
+              Better liquidity starts with <span className="text-primary">better flow.</span>
+            </h1>
+            <p className="mx-auto mt-5 max-w-2xl text-[15px] leading-7 text-on-surface-variant md:text-base md:leading-7">
+              Create protected v4 pools and route private swaps with iExec Nox.
+            </p>
 
-          <h1 className="mx-auto mb-5 max-w-[680px] font-display-lg text-[40px] leading-[0.98] tracking-tight text-on-background sm:text-[52px] md:max-w-none md:text-[64px]">
-            Protect liquidity with adaptive <span className="text-primary">Uniswap v4</span> hooks
-          </h1>
-
-          <p className="mx-auto mb-8 max-w-[34rem] px-2 font-body-lg text-[15px] leading-7 text-on-surface-variant md:mb-10 md:px-0 md:text-body-lg">
-            HookFlow lets LPs launch X Layer pools with adaptive fees, size-aware pricing, and toxic-flow protection.
-            Choose a safe preset, add liquidity, and let risky flow pay more.
-          </p>
-
-          <div className="mx-auto flex max-w-[20rem] flex-col items-stretch justify-center gap-3 sm:max-w-md md:max-w-none md:flex-row md:items-center md:gap-4">
-            <Link
-              className="group flex w-full items-center justify-center gap-2 rounded-none bg-primary px-7 py-4 font-label-md text-label-md text-on-primary transition-all hover:shadow-[0_0_20px_rgba(78,222,163,0.3)] md:w-auto md:px-10"
-              href="/dashboard"
-            >
-              Dashboard
-              <span className="material-symbols-outlined transition-transform group-hover:translate-x-1">arrow_forward</span>
-            </Link>
-
-            <Link
-              className="flex w-full items-center justify-center gap-2 rounded-none border border-primary/40 px-7 py-4 font-label-md text-label-md text-primary transition-all hover:bg-primary/5 md:w-auto md:px-10"
-              href="/create"
-            >
-              Create Pool
-              <span className="material-symbols-outlined">add</span>
-            </Link>
+            <div className="mt-7 flex flex-col justify-center gap-3 sm:flex-row">
+              <Link className="group inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3.5 text-xs font-extrabold uppercase tracking-[0.08em] text-on-primary shadow-glow transition hover:bg-primary-fixed md:px-6 md:py-4" href="/phantom">
+                Try confidential routing
+                <span className="material-symbols-outlined text-lg transition-transform group-hover:translate-x-1">arrow_forward</span>
+              </Link>
+              <Link className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/[0.03] px-5 py-3.5 text-sm font-bold text-white transition hover:border-primary/40 hover:bg-primary/[0.06] md:px-6 md:py-4" href="/create">
+                Create a protected pool
+              </Link>
+            </div>
           </div>
         </div>
       </section>

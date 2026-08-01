@@ -25,12 +25,14 @@ contract HookFlowHook is IHooks {
 
     address public immutable owner;
     address public immutable poolManager;
+    address public presetOperator;
 
     mapping(PoolId poolId => HookFlowTypes.PoolConfig) public poolConfigs;
     mapping(PoolId poolId => HookFlowTypes.PoolFlowState) public poolFlowStates;
 
     event PoolConfigured(PoolId indexed poolId, HookFlowTypes.PoolConfig config);
     event PoolPresetApplied(PoolId indexed poolId, HookFlowTypes.Preset preset, HookFlowTypes.PoolConfig config);
+    event PresetOperatorUpdated(address indexed previousOperator, address indexed newOperator);
     event FlowAssessed(
         PoolId indexed poolId, uint24 appliedFeePips, uint8 sizeBucket, uint32 toxicScore, bool defensiveMode
     );
@@ -53,7 +55,7 @@ contract HookFlowHook is IHooks {
     }
 
     modifier onlyPresetOperator() {
-        if (msg.sender != owner) revert NotPresetOperator();
+        if (msg.sender != owner && msg.sender != presetOperator) revert NotPresetOperator();
         _;
     }
 
@@ -61,6 +63,14 @@ contract HookFlowHook is IHooks {
         if (initialOwner == address(0) || initialPoolManager == address(0)) revert InvalidConfig();
         owner = initialOwner;
         poolManager = initialPoolManager;
+    }
+
+    /// @notice Authorizes the atomic pool launcher without making pool
+    ///         configuration generally permissionless or front-runnable.
+    function setPresetOperator(address newOperator) external onlyOwner {
+        address previousOperator = presetOperator;
+        presetOperator = newOperator;
+        emit PresetOperatorUpdated(previousOperator, newOperator);
     }
 
     function setPoolConfig(PoolId poolId, HookFlowTypes.PoolConfig calldata config) external onlyOwner {

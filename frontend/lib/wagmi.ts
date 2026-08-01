@@ -1,33 +1,14 @@
 import { http, createConfig } from "wagmi";
-import { defineChain } from "viem";
 import { injected } from "wagmi/connectors";
+import { sepolia } from "viem/chains";
 
-export const xLayer = defineChain({
-  id: 196,
-  name: "X Layer",
-  nativeCurrency: {
-    decimals: 18,
-    name: "OKB",
-    symbol: "OKB"
-  },
-  rpcUrls: {
-    default: {
-      http: ["https://rpc.xlayer.tech"]
-    }
-  },
-  blockExplorers: {
-    default: {
-      name: "OKLink",
-      url: "https://www.oklink.com/xlayer"
-    }
-  }
-});
+export const hookFlowChain = sepolia;
 
 export const wagmiConfig = createConfig({
-  chains: [xLayer],
+  chains: [sepolia],
   connectors: [injected()],
   transports: {
-    [xLayer.id]: http()
+    [sepolia.id]: http()
   },
   ssr: true
 });

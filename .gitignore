@@ -20,6 +20,7 @@ coverage.json
 
 # Node / frontend
 node_modules/
+artifacts/
 .next/
 .vercel/
 dist/

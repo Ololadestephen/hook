@@ -39,14 +39,14 @@ contract HookFlowFactory {
 contract DeployHookFlow is Script {
     using PoolIdLibrary for PoolKey;
 
-    address internal constant X_LAYER_MAINNET_POOL_MANAGER = 0x360E68faCcca8cA495c1B759Fd9EEe466db9FB32;
+    address internal constant SEPOLIA_POOL_MANAGER = 0xE03A1074c86CFeDd5C142C4F04F1a1536e203543;
     uint160 internal constant HOOK_FLAGS = Hooks.BEFORE_SWAP_FLAG | Hooks.AFTER_SWAP_FLAG;
 
     error TokensOutOfOrder(address token0, address token1);
 
     function run() external returns (HookFlowFactory factory, HookFlowHook hook, PoolId poolId) {
         uint256 deployerKey = vm.envUint("PRIVATE_KEY");
-        address poolManager = vm.envOr("POOL_MANAGER", X_LAYER_MAINNET_POOL_MANAGER);
+        address poolManager = vm.envOr("POOL_MANAGER", SEPOLIA_POOL_MANAGER);
         address owner = vm.envOr("HOOK_OWNER", vm.addr(deployerKey));
         address token0 = vm.envAddress("TOKEN0");
         address token1 = vm.envAddress("TOKEN1");

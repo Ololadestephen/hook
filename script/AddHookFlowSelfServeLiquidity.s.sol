@@ -14,22 +14,20 @@ import {ModifyLiquidityParams} from "v4-core/src/types/PoolOperation.sol";
 contract AddHookFlowSelfServeLiquidity is Script {
     using PoolIdLibrary for PoolKey;
 
-    address internal constant PUBLIC_HOOK = 0xC18e6daa59708C1Be5567C350f176319Ee4580C0;
-    address internal constant LIQUIDITY_ROUTER = 0x47a4bfA07471baBdC124cbf70020EBD6CcddBD9D;
-    address internal constant USDT0 = 0x779Ded0c9e1022225f8E0630b35a9b54bE713736;
-    address internal constant WOKB = 0xe538905cf8410324e03A5A23C1c177a474D59b2b;
+    address internal constant SEPOLIA_USDC = 0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238;
+    address internal constant SEPOLIA_WETH = 0xfFf9976782d46CC05630D1f6eBAb18b2324d6B14;
 
     function run() external returns (PoolId poolId) {
         uint256 deployerKey = vm.envUint("PRIVATE_KEY");
-        address token0 = vm.envOr("TOKEN0", USDT0);
-        address token1 = vm.envOr("TOKEN1", WOKB);
-        address hook = vm.envOr("PUBLIC_HOOK", PUBLIC_HOOK);
-        address payable router = payable(vm.envOr("LIQUIDITY_ROUTER", LIQUIDITY_ROUTER));
-        int24 tickLower = int24(vm.envOr("LP_TICK_LOWER", int256(231_480)));
-        int24 tickUpper = int24(vm.envOr("LP_TICK_UPPER", int256(240_000)));
-        int256 liquidityDelta = int256(vm.envOr("LP_LIQUIDITY_DELTA", uint256(212_907_858_906)));
-        uint256 token0Allowance = vm.envOr("LP_TOKEN0_ALLOWANCE", uint256(1_000_000));
-        uint256 token1Allowance = vm.envOr("LP_TOKEN1_ALLOWANCE", uint256(0.00002 ether));
+        address token0 = vm.envOr("TOKEN0", SEPOLIA_USDC);
+        address token1 = vm.envOr("TOKEN1", SEPOLIA_WETH);
+        address hook = vm.envAddress("PUBLIC_HOOK");
+        address payable router = payable(vm.envAddress("LIQUIDITY_ROUTER"));
+        int24 tickLower = int24(vm.envOr("LP_TICK_LOWER", int256(193_800)));
+        int24 tickUpper = int24(vm.envOr("LP_TICK_UPPER", int256(198_660)));
+        int256 liquidityDelta = int256(vm.envOr("LP_LIQUIDITY_DELTA", uint256(1_400_000_000_000)));
+        uint256 token0Allowance = vm.envOr("LP_TOKEN0_ALLOWANCE", uint256(10_000_000));
+        uint256 token1Allowance = vm.envOr("LP_TOKEN1_ALLOWANCE", uint256(0.003 ether));
 
         PoolKey memory key = PoolKey({
             currency0: Currency.wrap(token0),

@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Sora:wght@500;600;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap");
 
 @tailwind base;
@@ -6,7 +6,7 @@
 @tailwind utilities;
 
 :root {
-  --mint: 78, 222, 163;
+  --mint: 73, 230, 142;
 }
 
 .material-symbols-outlined {
@@ -18,13 +18,13 @@
 }
 
 .orb-glow {
-  background: radial-gradient(circle, rgba(78, 222, 163, 0.25) 0%, rgba(8, 22, 18, 0) 70%);
+  background: radial-gradient(circle, rgba(73, 230, 142, 0.24) 0%, rgba(7, 31, 23, 0) 70%);
   filter: blur(80px);
 }
 
 .glass-panel {
-  background: rgba(20, 34, 30, 0.6);
-  border: 1px solid rgba(78, 222, 163, 0.1);
+  background: rgba(13, 51, 38, 0.66);
+  border: 1px solid rgba(73, 230, 142, 0.12);
   backdrop-filter: blur(20px);
 }
 
@@ -45,17 +45,60 @@
 
 
 html {
-  background: #081612;
+  background: #071f17;
 }
 
 body {
   min-height: 100vh;
   overflow-x: hidden;
   background:
-    radial-gradient(circle at 20% 15%, rgba(78, 222, 163, 0.12), transparent 28%),
-    radial-gradient(circle at 80% 10%, rgba(111, 251, 190, 0.08), transparent 25%),
-    linear-gradient(135deg, #081612 0%, #0c211b 45%, #04110d 100%);
-  color: #d5e6df;
+    radial-gradient(circle at 20% 15%, rgba(73, 230, 142, 0.14), transparent 28%),
+    radial-gradient(circle at 80% 10%, rgba(248, 244, 232, 0.06), transparent 25%),
+    linear-gradient(135deg, #071f17 0%, #0a2a20 48%, #041912 100%);
+  color: #f8f4e8;
+  font-size: 14px;
+  line-height: 1.55;
+  text-rendering: optimizeLegibility;
+}
+
+input,
+button,
+select,
+textarea {
+  font: inherit;
+}
+
+::selection {
+  background: rgba(73, 230, 142, 0.86);
+  color: #052d1d;
+}
+
+:where(a, button, summary):focus-visible {
+  outline: 2px solid rgba(111, 240, 168, 0.9);
+  outline-offset: 3px;
+}
+
+:where(input, select, textarea):focus-visible {
+  outline: none;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:not(:disabled),
+summary {
+  cursor: pointer;
+}
+
+input::placeholder {
+  color: rgba(188, 203, 189, 0.52);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(73, 230, 142, 0.38) rgba(4, 25, 18, 0.7);
 }
 
 .particle-field {
@@ -65,8 +108,8 @@ body {
   z-index: 0;
   opacity: 0.65;
   background-image:
-    radial-gradient(circle, rgba(213, 230, 223, 0.58) 0 1px, transparent 1.5px),
-    radial-gradient(circle, rgba(78, 222, 163, 0.4) 0 1px, transparent 1.5px);
+    radial-gradient(circle, rgba(248, 244, 232, 0.5) 0 1px, transparent 1.5px),
+    radial-gradient(circle, rgba(73, 230, 142, 0.42) 0 1px, transparent 1.5px);
   background-position: 0 0, 22px 34px;
   background-size: 78px 78px, 118px 118px;
   animation: drift 28s linear infinite;
@@ -84,7 +127,7 @@ body {
 }
 
 .glass {
-  background: rgba(16, 30, 26, 0.78);
+  background: rgba(10, 42, 32, 0.82);
   border: 1px solid rgba(var(--mint), 0.16);
   box-shadow: 0 24px 70px rgba(0, 0, 0, 0.25);
   backdrop-filter: blur(20px);
@@ -116,5 +159,16 @@ body {
   to {
     opacity: 0;
     transform: scale(1.35);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }

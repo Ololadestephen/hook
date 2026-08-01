@@ -16,6 +16,10 @@ contract PresetAttacker {
     function tryApplySafePreset(HookFlowHook hook, PoolId poolId, HookFlowTypes.Preset preset) external {
         hook.applySafePreset(poolId, preset);
     }
+
+    function trySetPresetOperator(HookFlowHook hook, address operator) external {
+        hook.setPresetOperator(operator);
+    }
 }
 
 contract HookFlowHookTest {
@@ -134,10 +138,12 @@ contract HookFlowHookTest {
         _assertEq(uint256(quote.sizeBucket), uint256(HookFlowTypes.SizeBucket.Medium), "launch bucket");
     }
 
-    function testApplySafePresetLetsAnyoneConfigureNewPoolOnce() public {
+    function testApplySafePresetLetsAuthorizedOperatorConfigureNewPoolOnce() public {
         PoolId newPoolId = PoolId.wrap(bytes32(uint256(42)));
+        PresetAttacker operator = new PresetAttacker();
+        hook.setPresetOperator(address(operator));
 
-        hook.applySafePreset(newPoolId, HookFlowTypes.Preset.StablePair);
+        operator.tryApplySafePreset(hook, newPoolId, HookFlowTypes.Preset.StablePair);
         HookFlowTypes.FeeQuote memory quote = hook.quoteSwap(newPoolId, _params(false, 1 ether), 1);
 
         _assertEq(quote.feePips, 500, "stable base fee");
@@ -159,6 +165,16 @@ contract HookFlowHookTest {
         );
 
         _assertEq(success, false, "unauthorized preset caller");
+    }
+
+    function testOnlyOwnerCanSetPresetOperator() public {
+        PresetAttacker attacker = new PresetAttacker();
+
+        (bool success,) = address(attacker).call(
+            abi.encodeCall(PresetAttacker.trySetPresetOperator, (hook, address(attacker)))
+        );
+
+        _assertEq(success, false, "unauthorized operator setter");
     }
 
     function testAfterSwapUsesExecutedDeltaInsteadOfRequestedSize() public {
