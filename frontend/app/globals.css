@@ -133,6 +133,65 @@ input::placeholder {
   backdrop-filter: blur(20px);
 }
 
+/* Main console: green navigation with a calm cream workspace. */
+.app-shell {
+  background: #f6f0df !important;
+  background-image: none !important;
+  color: #173c2c;
+}
+
+.app-shell > section {
+  color: #173c2c;
+}
+
+.app-shell > section :where(.text-white, .text-on-background, .text-on-surface) {
+  color: #173c2c !important;
+}
+
+.app-shell > section .text-on-surface-variant {
+  color: #607568 !important;
+}
+
+.app-shell > section .text-primary {
+  color: #087a48 !important;
+}
+
+.app-shell > section [class*="bg-surface-container"] {
+  background-color: #fffdf7 !important;
+}
+
+.app-shell > section [class*="bg-surface-container-lowest"],
+.app-shell > section [class*="bg-background"] {
+  background-color: #eee7d5 !important;
+}
+
+.app-shell > section [class*="to-surface-container-low"] {
+  --tw-gradient-to: #fffdf7 var(--tw-gradient-to-position) !important;
+}
+
+.app-shell > section [class*="border-outline-variant"],
+.app-shell > section [class*="border-white"] {
+  border-color: rgba(41, 94, 67, 0.2) !important;
+}
+
+.app-shell > section [class*="border-primary"] {
+  border-color: rgba(8, 122, 72, 0.32) !important;
+}
+
+.app-shell > section .glass {
+  background: #fffdf7 !important;
+  border-color: rgba(41, 94, 67, 0.2);
+  box-shadow: 0 20px 55px rgba(32, 73, 52, 0.1);
+  backdrop-filter: none;
+}
+
+.app-shell > .particle-field {
+  opacity: 0.22;
+  background-image:
+    radial-gradient(circle, rgba(18, 75, 49, 0.38) 0 1px, transparent 1.5px),
+    radial-gradient(circle, rgba(8, 122, 72, 0.3) 0 1px, transparent 1.5px);
+}
+
 .hairline {
   border-color: rgba(var(--mint), 0.14);
 }

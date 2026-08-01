@@ -23,7 +23,7 @@ const protections = [
 
 export default function ProtectPage() {
   return (
-    <main className="min-h-screen bg-background pb-24 text-on-background lg:pb-0 lg:pl-[250px]">
+    <main className="app-shell min-h-screen bg-background pb-24 text-on-background lg:pb-0 lg:pl-[250px]">
       <AppNav active="protect" />
       <section className="px-4 py-5 md:px-8 md:py-6">
         <div className="mx-auto max-w-6xl">

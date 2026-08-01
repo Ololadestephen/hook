@@ -197,7 +197,7 @@ function PhantomBatchContent() {
   }
 
   return (
-    <main className="relative min-h-screen overflow-x-hidden bg-background pb-24 text-on-background lg:pb-0 lg:pl-[250px]">
+    <main className="app-shell relative min-h-screen overflow-x-hidden bg-background pb-24 text-on-background lg:pb-0 lg:pl-[250px]">
       <AppNav active="phantom" />
       <div className="particle-field" />
       <section className="relative z-10 mx-auto w-full max-w-[1400px] px-4 py-4 md:px-8 md:py-5 lg:px-10">
