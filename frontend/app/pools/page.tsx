@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { parseUnits, zeroHash, type Address } from "viem";
 import {
   useAccount,
@@ -60,6 +60,7 @@ function PoolsContent() {
   const [isLoadingPools, setIsLoadingPools] = useState(false);
   const [loadError, setLoadError] = useState("");
   const [transactionAction, setTransactionAction] = useState<TransactionAction>("idle");
+  const emptyRefreshes = useRef(0);
 
   const { address, chainId, isConnected } = useAccount();
   const { connectors, connect, isPending: isConnecting } = useConnect();
@@ -90,12 +91,14 @@ function PoolsContent() {
     try {
       const nextPools = await getManagedPools(publicClient, address);
       setPools(nextPools);
+      emptyRefreshes.current = nextPools.length === 0 ? emptyRefreshes.current + 1 : 0;
       setSelectedPoolId((current) => current && nextPools.some((pool) => pool.poolId === current)
         ? current
         : nextPools[0]?.poolId ?? null);
     } catch (poolError) {
       console.error(poolError);
-      setLoadError("We couldn’t load your pools from Sepolia. Check your connection and try again.");
+      emptyRefreshes.current += 1;
+      setLoadError("Sepolia is taking longer than expected to return your pools. We’ll keep checking automatically.");
     } finally {
       setIsLoadingPools(false);
     }
@@ -108,6 +111,12 @@ function PoolsContent() {
   useEffect(() => {
     if (isConfirmed && hash) void loadPools();
   }, [hash, isConfirmed, loadPools]);
+
+  useEffect(() => {
+    if (!isConnected || wrongNetwork || isLoadingPools || pools.length > 0 || emptyRefreshes.current >= 6) return;
+    const refreshTimer = setTimeout(() => void loadPools(), 5_000);
+    return () => clearTimeout(refreshTimer);
+  }, [isConnected, isLoadingPools, loadError, loadPools, pools.length, wrongNetwork]);
 
   const amount0Max = selectedPool ? parseTokenAmount(amount0, selectedPool.decimals0) : null;
   const amount1Max = selectedPool ? parseTokenAmount(amount1, selectedPool.decimals1) : null;
@@ -217,9 +226,9 @@ function PoolsContent() {
             </article>
           ) : loadError ? (
             <article className="rounded-2xl border border-error/25 bg-error/5 p-6">
-              <h2 className="font-display text-xl font-bold text-white">Pools unavailable</h2>
+              <h2 className="font-display text-xl font-bold text-white">Sepolia is catching up</h2>
               <p className="mt-2 text-sm text-on-surface-variant">{loadError}</p>
-              <button className="mt-4 rounded-xl border border-error/30 px-4 py-2.5 text-xs font-bold text-error" onClick={() => void loadPools()}>Try again</button>
+              <button className="mt-4 rounded-xl border border-error/30 px-4 py-2.5 text-xs font-bold text-error" onClick={() => { emptyRefreshes.current = 0; void loadPools(); }}>Check now</button>
             </article>
           ) : isLoadingPools && pools.length === 0 ? (
             <article className="grid min-h-[320px] place-items-center rounded-2xl border border-outline-variant/60 bg-surface-container-low p-6 text-center">
