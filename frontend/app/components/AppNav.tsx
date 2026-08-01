@@ -18,7 +18,7 @@ type AppNavProps = {
 
 export function AppNav({ active }: AppNavProps) {
   return (
-    <aside className="sticky top-0 z-50 border-b border-white/10 bg-[#0b4a34] lg:fixed lg:inset-y-0 lg:left-0 lg:h-auto lg:w-[250px] lg:border-b-0 lg:border-r lg:border-white/10">
+    <aside className="sticky top-0 z-50 border-b border-white/10 bg-[#071f17] lg:fixed lg:inset-y-0 lg:left-0 lg:h-auto lg:w-[250px] lg:border-b-0 lg:border-r lg:border-white/10">
       <div className="flex h-full flex-col px-3 py-2.5 lg:gap-7 lg:px-5 lg:py-6">
         <div className="flex h-11 items-center justify-between lg:h-auto lg:border-b lg:border-white/5 lg:pb-5">
           <Link className="flex items-center gap-3" href="/">
@@ -28,7 +28,7 @@ export function AppNav({ active }: AppNavProps) {
           <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.12em] text-primary lg:hidden"><span className="h-1.5 w-1.5 rounded-full bg-primary" />Sepolia</span>
         </div>
 
-        <nav className="fixed inset-x-0 bottom-0 z-[60] grid grid-cols-5 border-t border-white/10 bg-[#0b4a34]/95 px-1.5 pb-[max(8px,env(safe-area-inset-bottom))] pt-2 shadow-[0_-16px_40px_rgba(0,0,0,.22)] backdrop-blur-xl lg:static lg:flex lg:flex-col lg:gap-3 lg:border-0 lg:bg-transparent lg:p-0 lg:shadow-none">
+        <nav className="fixed inset-x-0 bottom-0 z-[60] grid grid-cols-5 border-t border-white/10 bg-[#071f17]/95 px-1.5 pb-[max(8px,env(safe-area-inset-bottom))] pt-2 shadow-[0_-16px_40px_rgba(0,0,0,.22)] backdrop-blur-xl lg:static lg:flex lg:flex-col lg:gap-3 lg:border-0 lg:bg-transparent lg:p-0 lg:shadow-none">
           {navItems.map((item) => {
             const isActive = item.key === active;
 

@@ -135,7 +135,7 @@ input::placeholder {
 
 /* Main console: green navigation with a calm cream workspace. */
 .app-shell {
-  background: #f6f0df !important;
+  background: #e7e1d2 !important;
   background-image: none !important;
   color: #173c2c;
 }
@@ -157,16 +157,16 @@ input::placeholder {
 }
 
 .app-shell > section [class*="bg-surface-container"] {
-  background-color: #fffdf7 !important;
+  background-color: #f2eee4 !important;
 }
 
 .app-shell > section [class*="bg-surface-container-lowest"],
 .app-shell > section [class*="bg-background"] {
-  background-color: #eee7d5 !important;
+  background-color: #ddd6c6 !important;
 }
 
 .app-shell > section [class*="to-surface-container-low"] {
-  --tw-gradient-to: #fffdf7 var(--tw-gradient-to-position) !important;
+  --tw-gradient-to: #f2eee4 var(--tw-gradient-to-position) !important;
 }
 
 .app-shell > section [class*="border-outline-variant"],
@@ -179,7 +179,7 @@ input::placeholder {
 }
 
 .app-shell > section .glass {
-  background: #fffdf7 !important;
+  background: #f2eee4 !important;
   border-color: rgba(41, 94, 67, 0.2);
   box-shadow: 0 20px 55px rgba(32, 73, 52, 0.1);
   backdrop-filter: none;
